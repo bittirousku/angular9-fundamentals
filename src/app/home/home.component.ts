@@ -3,9 +3,13 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  title = 'Course Lessons';
+  themeColor = 'blue';
+
+  currentLesson = null;
 
   courseLessons = [
     { title: 'Hello Angular' },
@@ -18,9 +22,17 @@ export class HomeComponent implements OnInit {
     { title: 'Unit Testing Fundamentals' },
   ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  updateColor() {
+    console.log('update color');
+    this.themeColor = 'green';
   }
 
+  selectLesson(lesson) {
+    this.currentLesson = lesson;
+    console.log('currentLesson', this.currentLesson);
+  }
 }

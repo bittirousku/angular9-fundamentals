@@ -7,7 +7,6 @@ import { LessonsService } from '../shared/services/lessons.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  title = 'Course Lessons';
   themeColor = 'blue';
 
   currentLesson = null;
@@ -19,6 +18,11 @@ export class HomeComponent implements OnInit {
   // STEP 2 add the lessons service to app.module
   // STEP 3: inject lessons service into component
   // STEP 4: move lessons to service and consume in component
+
+  // Challenge 2
+  // Step 1: create a LessonsList child component
+  // Step 2: Create the appropriate inputs and outputs
+  // Step 3: Render LessonsList component
 
   constructor(private lessonsService: LessonsService) {}
 

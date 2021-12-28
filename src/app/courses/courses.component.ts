@@ -40,6 +40,10 @@ export class CoursesComponent implements OnInit {
   }
 
   selectCourse(course) {
+    // Clone the object to break the coupling
+    // This is done in CourseDetailsComponents in the course...?
+    // BECAUSE this should be an implementation detail of the child,
+    // not the responsibility of this component!
     this.currentCourse = { ...course };
   }
 

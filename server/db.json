@@ -6,6 +6,13 @@
       "description": "Learn the fundamentals of Angular 9",
       "percentComplete": 26,
       "favorite": true
+    },
+    {
+      "id": 2,
+      "title": "HÖ HÖ HÖ",
+      "description": "joo",
+      "percentComplete": 23,
+      "favorite": true
     }
   ]
 }

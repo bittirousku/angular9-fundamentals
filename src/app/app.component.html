@@ -4,7 +4,7 @@
       <mat-icon>menu</mat-icon>
     </button>
     <span class="logo">
-      <img src="assets/logo.png" alt="Logo">
+      <img src="assets/logo.png" alt="Logo" />
     </span>
     <span class="title">
       {{ title }}
@@ -14,14 +14,29 @@
   <button class="login" mat-mini-fab>
     <mat-icon>person</mat-icon>
   </button>
-  </mat-toolbar>
-  
-  <mat-sidenav-container>
+</mat-toolbar>
+
+<mat-sidenav-container>
   <mat-sidenav #sidenav mode="side" opened class="app-sidenav">
     <!-- Sidenav Menu -->
+    <nav>
+      <a
+        mat-button
+        class="nav-link"
+        *ngFor="let link of links"
+        [routerLink]="link.path"
+        routerLinkActive="active"
+      >
+        <!-- routerLink: better to use than plain href -->
+        <!-- routerLinkActive: adds an attribute which can be used to style the active element -->
+
+        <mat-icon>{{ link.icon }}</mat-icon>
+        {{ link.title }}
+      </a>
+    </nav>
   </mat-sidenav>
-  
+
   <div class="container">
     <router-outlet></router-outlet>
   </div>
-  </mat-sidenav-container>
+</mat-sidenav-container>

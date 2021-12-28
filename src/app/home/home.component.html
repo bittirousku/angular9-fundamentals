@@ -1,45 +1,6 @@
-<mat-card>
-    <mat-card-header>
-      <mat-card-title>
-        {{title}}
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <!-- LESSON LIST -->
-      
-      <!-- pass data from class to template and back -->
-      <!-- <hr>
-      <span [style.color]="themeColor">
-        Some colored text
-      </span>
-      <hr>
-      <input name="colorSelector" [(ngModel)]="themeColor" type="text">
+<app-lessons-list
+  [lessons]="courseLessons"
+  (selectedLesson)="selectLesson($event)"
+></app-lessons-list>
 
-      <hr>
-      <button mat-button (click)="updateColor()">Update with click</button>
-      <button mat-button (mouseenter)="updateColor()">Update with hover</button>
-       -->
-      
-       <!-- Angular for loop -->
-       <!-- For typing to work, need to set strictTemplates=true in tsconfig.json -->
-       <mat-list>
-           <mat-list-item *ngFor="let lesson of courseLessons" (click)="selectLesson(lesson)">
-               <h3>{{lesson.title}}</h3>
-           </mat-list-item>
-       </mat-list>
-
-    </mat-card-content>
-    </mat-card>
-
-
-  <!-- Nice debug trick, dump the object as json -->
-  <mat-card>
-      <mat-card-header>
-          <mat-card-title>DEBUG</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <!-- Conditional rendering with ngIf, so clunky! -->
-         <span *ngIf="currentLesson else elseBlock"> {{currentLesson | json}}</span>
-         <ng-template #elseBlock>Select a lesson</ng-template>
-      </mat-card-content>
-  </mat-card>
+<pre>{{ currentLesson | json }}</pre>

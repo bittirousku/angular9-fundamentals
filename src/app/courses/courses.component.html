@@ -1,114 +1,17 @@
 <div class="courses-containers">
   <div class="courses-list">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title> Course List </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <!-- COURSES LIST -->
-        <mat-list>
-          <mat-list-item
-            *ngFor="let course of courses"
-            (click)="selectCourse(course)"
-          >
-            <h3 matLine>{{ course.title }}</h3>
-            <!-- FIXME: wtf there is no line break?? -->
-            <p matLine>{{ course.description }}</p>
-            <button
-              mat-icon-button
-              color="warn"
-              (click)="
-                deleteCourse(course.id); $event.stopImmediatePropagation()
-              "
-            >
-              <!-- don't select the course if delete is clicked with stopImmediatePropagation -->
-              <mat-icon>delete</mat-icon>
-            </button>
-          </mat-list-item>
-        </mat-list>
-      </mat-card-content>
-    </mat-card>
+    <app-courses-list
+      [courses]="courses"
+      (selected)="selectCourse($event)"
+      (deleted)="deleteCourse($event)"
+    ></app-courses-list>
   </div>
 
   <div class="course-details">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>
-          <span *ngIf="currentCourse.title; else noSelection">
-            {{ currentCourse.title }}</span
-          >
-          <ng-template #noSelection>Select a course</ng-template>
-        </mat-card-title>
-      </mat-card-header>
-
-      <!-- COURSE FORM -->
-      <form #form="ngForm" (submit)="saveCourse(currentCourse)">
-        <mat-card-content>
-          <!-- Simple JSON dump -->
-          <!-- <span *ngIf="currentCourse">
-            <pre>{{ currentCourse | json }}</pre>
-          </span> -->
-
-          <mat-form-field>
-            <input
-              matInput
-              placeholder="Title"
-              type="text"
-              name="title"
-              [(ngModel)]="currentCourse.title"
-              required
-            />
-          </mat-form-field>
-
-          <mat-form-field>
-            <input
-              matInput
-              placeholder="Description"
-              type="text"
-              name="description"
-              [(ngModel)]="currentCourse.description"
-            />
-          </mat-form-field>
-          <!-- mat-form-field is designed for text fields -->
-          <!-- need to use section tag -->
-
-          <section>
-            <!-- <mat-label>Percent complete?</mat-label> -->
-            <h4>{{ currentCourse.percentComplete }}% complete</h4>
-            <mat-slider
-              class="full-width"
-              min="0"
-              max="100"
-              name="percentComplete"
-              thumbLabel
-              [(ngModel)]="currentCourse.percentComplete"
-            >
-            </mat-slider>
-          </section>
-
-          <section>
-            <mat-checkbox name="favorite" [(ngModel)]="currentCourse.favorite">
-              Favorite course
-            </mat-checkbox>
-          </section>
-        </mat-card-content>
-
-        <mat-card-actions>
-          <!-- COURSE ACTIONS -->
-          <button
-            [disabled]="form.invalid"
-            type="submit"
-            mat-button
-            color="primary"
-          >
-            Submit
-          </button>
-          <button type="button" mat-button (click)="cancel()">Cancel</button>
-        </mat-card-actions>
-      </form>
-
-      <pre>{{ form.value | json }} </pre>
-      <pre>{{ form.valid | json }} </pre>
-    </mat-card>
+    <app-course-details
+      [course]="currentCourse"
+      (saved)="saveCourse($event)"
+      (cancelled)="cancel()"
+    ></app-course-details>
   </div>
 </div>

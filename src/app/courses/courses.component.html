@@ -42,7 +42,7 @@
       </mat-card-header>
 
       <!-- COURSE FORM -->
-      <form #form="ngForm" (submit)="saveCourse()">
+      <form #form="ngForm" (submit)="saveCourse(currentCourse)">
         <mat-card-content>
           <!-- Simple JSON dump -->
           <!-- <span *ngIf="currentCourse">

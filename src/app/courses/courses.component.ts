@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CoursesService } from '../shared/services/courses.service';
 
 @Component({
   selector: 'app-courses',
@@ -13,28 +14,13 @@ export class CoursesComponent implements OnInit {
 
   currentCourse = null;
 
-  courses = [
-    {
-      id: 1,
-      title: 'Angular 9 Fundamentals',
-      description: 'Learn the fundamentals of Angular 9',
-      percentComplete: 26,
-      favorite: true,
-    },
-    {
-      id: 2,
-      title: 'Course number two',
-      description: 'Learn moar',
-      percentComplete: 50,
-      favorite: false,
-    },
-  ];
-
-  constructor() {}
+  courses = null;
+  constructor(private coursesService: CoursesService) {}
 
   ngOnInit(): void {
     // Do initialization stuff here instead of the constructor
     this.resetSelectedCourse();
+    this.courses = this.coursesService.all();
   }
 
   resetSelectedCourse() {
@@ -52,15 +38,17 @@ export class CoursesComponent implements OnInit {
     this.currentCourse = { ...course };
   }
 
-  saveCourse() {
-    console.log('save course!!');
-    this.courses = this.courses.map((course) =>
-      course.id === this.currentCourse.id ? this.currentCourse : course
-    );
+  saveCourse(course) {
+    if (course.id) {
+      this.coursesService.update(course);
+    }
+    this.coursesService.create(course);
+    this.courses = this.coursesService.all();
   }
 
   deleteCourse(courseId) {
-    this.courses = this.courses.filter((course) => course.id !== courseId);
+    this.coursesService.delete(courseId);
+    this.courses = this.coursesService.all();
   }
 
   cancel() {

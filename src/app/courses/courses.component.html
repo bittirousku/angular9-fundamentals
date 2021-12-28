@@ -11,9 +11,9 @@
             *ngFor="let course of courses"
             (click)="selectCourse(course)"
           >
-            <h3 matline>{{ course.title }}</h3>
+            <h3 matLine>{{ course.title }}</h3>
             <!-- FIXME: wtf there is no line break?? -->
-            <p matline>{{ course.description }}</p>
+            <p matLine>{{ course.description }}</p>
             <button
               mat-icon-button
               color="warn"

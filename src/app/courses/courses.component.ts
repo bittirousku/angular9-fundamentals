@@ -12,6 +12,11 @@ export class CoursesComponent implements OnInit {
   // Step 2 : add event handler to select course
   // Step 3: display raw json of selected course
 
+  // NEW Challenge
+  // Step 1 Complete remote update call
+  // Step 2 Complete remote delete call
+  // Step 3 Fix UI on completed operation (de-select the course)
+
   currentCourse = null;
 
   courses = null;
@@ -20,7 +25,7 @@ export class CoursesComponent implements OnInit {
   ngOnInit(): void {
     // Do initialization stuff here instead of the constructor
     this.resetSelectedCourse();
-    this.courses = this.coursesService.all();
+    this.loadCourses();
   }
 
   resetSelectedCourse() {
@@ -38,17 +43,31 @@ export class CoursesComponent implements OnInit {
     this.currentCourse = { ...course };
   }
 
+  loadCourses() {
+    this.coursesService.all().subscribe((courses) => (this.courses = courses));
+  }
+
+  refreshCourses() {
+    this.loadCourses();
+    this.resetSelectedCourse();
+  }
+
   saveCourse(course) {
     if (course.id) {
-      this.coursesService.update(course);
+      this.coursesService
+        .update(course)
+        .subscribe((_) => this.refreshCourses());
+    } else {
+      this.coursesService
+        .create(course)
+        .subscribe((_) => this.refreshCourses());
     }
-    this.coursesService.create(course);
-    this.courses = this.coursesService.all();
   }
 
   deleteCourse(courseId) {
-    this.coursesService.delete(courseId);
-    this.courses = this.coursesService.all();
+    this.coursesService
+      .delete(courseId)
+      .subscribe((_) => this.refreshCourses());
   }
 
   cancel() {
